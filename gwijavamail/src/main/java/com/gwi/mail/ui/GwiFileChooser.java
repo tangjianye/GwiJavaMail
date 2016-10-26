@@ -26,9 +26,10 @@ public class GwiFileChooser extends JFrame implements ActionListener {
 
     public GwiFileChooser() {
         mOpen = new JButton(GwiConfigs.LABEL_DOCUMENT);
+        //mOpen.setBackground(Color.pink);
         Font font = new Font("宋体", Font.BOLD, 20);
         mOpen.setFont(font);
-        mOpen.setBorder(BorderFactory.createLoweredBevelBorder());
+        mOpen.setBorder(BorderFactory.createRaisedBevelBorder());
         this.add(mOpen);
         this.setBounds(400, 200, 400, 400);
         this.setVisible(true);
