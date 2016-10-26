@@ -10,8 +10,8 @@ public class GwiConfigs {
     public static final String LABEL_MSG = "发送邮件%s封";
 
     public static final String MAIL_FROM = "GWI Abnormal attendance";
-    public static final String MAIL_SUBJECT = "Abnormal attendance";
-    public static final String MAIL_CONTENT = "Abnormal attendance list: ";
+    public static final String MAIL_SUBJECT = "考勤异常";
+    public static final String MAIL_CONTENT = "考勤异常时间列表: ";
 
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMAT_DAY = "yyyy-MM-dd";
