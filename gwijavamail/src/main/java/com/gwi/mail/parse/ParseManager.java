@@ -140,7 +140,7 @@ public class ParseManager {
                 sb.append(entity.getClock());
                 if (mHashMap.containsKey(entity.getJobNumber())) {
                     String clock = mHashMap.get(entity.getJobNumber());
-                    sb.append("    ").append(clock).append("    ").append(entity.getClock());
+                    sb.append("<br>").append(clock).append("<br>").append(entity.getClock());
                 }
                 mHashMap.put(entity.getJobNumber(), sb.toString());
             }

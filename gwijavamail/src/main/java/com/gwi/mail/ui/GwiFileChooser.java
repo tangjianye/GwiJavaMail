@@ -58,20 +58,15 @@ public class GwiFileChooser extends JFrame implements ActionListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
                 HashMap<String, String> hashMap = ParseManager.getInstance().parse(filePath);
 
                 for (Map.Entry<String, String> entry : hashMap.entrySet()) {
                     System.out.println("Email:" + entry.getKey() + " Content:" + entry.getValue());
                     String email = MailManager.getInstance().creatGwiMail(entry.getKey());
-                    String content = GwiConfigs.MAIL_CONTENT + entry.getValue();
+                    StringBuffer sb = new StringBuffer();
+                    sb.append(GwiConfigs.MAIL_CONTENT).append("<br>").append(entry.getValue());
                     try {
-                        MailManager.getInstance().sendMimeMail(email, content);
+                        MailManager.getInstance().sendMimeMail(email, sb.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
