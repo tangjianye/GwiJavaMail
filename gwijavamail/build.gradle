@@ -8,6 +8,7 @@ dependencies {
     compile files('libs/mailapi.jar')
     compile files('libs/pop3.jar')
     compile files('libs/smtp.jar')
+    compile files('libs/jxl.jar')
 }
 
 tasks.withType(JavaCompile) {
