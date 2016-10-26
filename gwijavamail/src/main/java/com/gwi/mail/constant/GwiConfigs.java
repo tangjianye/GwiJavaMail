@@ -6,8 +6,8 @@ package com.gwi.mail.constant;
 public class GwiConfigs {
     public static final String LABEL_DOCUMENT = "Document";
     public static final String LABEL_CHOICE = "Choice";
-    public static final String LABEL_FILE = "File";
-    public static final String LABEL_FOLDER = "Folder";
+    public static final String LABEL_TITLE = "Title";
+    public static final String LABEL_MSG = "Complete";
 
     public static final String MAIL_FROM = "GWI Abnormal attendance";
     public static final String MAIL_SUBJECT = "Abnormal attendance";

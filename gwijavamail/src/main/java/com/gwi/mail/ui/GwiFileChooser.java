@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * Created by Administrator on 2016-10-26.
@@ -57,6 +58,11 @@ public class GwiFileChooser extends JFrame implements ActionListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 HashMap<String, String> hashMap = ParseManager.getInstance().parse(filePath);
 
@@ -70,6 +76,8 @@ public class GwiFileChooser extends JFrame implements ActionListener {
                         e.printStackTrace();
                     }
                 }
+
+                JOptionPane.showMessageDialog(null, GwiConfigs.LABEL_MSG, GwiConfigs.LABEL_TITLE, JOptionPane.PLAIN_MESSAGE);
             }
         }).start();
     }
