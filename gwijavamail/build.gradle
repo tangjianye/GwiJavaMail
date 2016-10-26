@@ -1,0 +1,11 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/dsn.jar')
+    compile files('libs/imap.jar')
+    compile files('libs/mail.jar')
+    compile files('libs/mailapi.jar')
+    compile files('libs/pop3.jar')
+    compile files('libs/smtp.jar')
+}
