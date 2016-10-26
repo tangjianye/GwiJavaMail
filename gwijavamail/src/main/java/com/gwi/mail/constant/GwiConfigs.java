@@ -7,7 +7,7 @@ public class GwiConfigs {
     public static final String LABEL_DOCUMENT = "选择考勤文档（.txt）";
     public static final String LABEL_CHOICE = "选择";
     public static final String LABEL_TITLE = "完成";
-    public static final String LABEL_MSG = "发送邮件%s封";
+    public static final String LABEL_MSG = "发出%s封邮件";
 
     public static final String MAIL_FROM = "GWI Abnormal attendance";
     public static final String MAIL_SUBJECT = "考勤异常";
