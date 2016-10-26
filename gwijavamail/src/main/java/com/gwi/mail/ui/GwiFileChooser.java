@@ -26,7 +26,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
 
     public GwiFileChooser() {
         mOpen = new JButton(GwiConfigs.LABEL_DOCUMENT);
-        Font font = new Font("宋体", Font.BOLD, 25);
+        Font font = new Font("宋体", Font.BOLD, 20);
         mOpen.setFont(font);
         mOpen.setBorder(BorderFactory.createLoweredBevelBorder());
         this.add(mOpen);
@@ -77,7 +77,8 @@ public class GwiFileChooser extends JFrame implements ActionListener {
                     }
                 }
 
-                JOptionPane.showMessageDialog(null, GwiConfigs.LABEL_MSG, GwiConfigs.LABEL_TITLE, JOptionPane.PLAIN_MESSAGE);
+                String msg = String.format(GwiConfigs.LABEL_MSG, hashMap.size());
+                JOptionPane.showMessageDialog(null, msg, GwiConfigs.LABEL_TITLE, JOptionPane.PLAIN_MESSAGE);
             }
         }).start();
     }
