@@ -7,14 +7,14 @@ public class TxtEntity {
     // 考勤号码
     private String jobNumber;
     // 打卡时间
-    private String clock;
+    private String date;
 
-    public String getClock() {
-        return clock;
+    public String getDate() {
+        return date;
     }
 
-    public void setClock(String clock) {
-        this.clock = clock;
+    public void setDate(String clock) {
+        this.date = clock;
     }
 
     public String getJobNumber() {

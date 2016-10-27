@@ -2,16 +2,14 @@ package com.gwi.mail.parse;
 
 import com.gwi.mail.constant.GwiConfigs;
 import com.gwi.mail.entity.TxtEntity;
+import com.gwi.mail.utils.CommonUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * Created by Administrator on 2016-10-25.
@@ -23,30 +21,6 @@ public class ParseText extends Parse<TxtEntity> implements IParse {
 
     public ParseText() {
         super();
-    }
-
-    private Date getParseDate(String clock) {
-        Date time = null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat(GwiConfigs.DEFAULT_DATE_FORMAT, Locale.CHINA);
-        SimpleDateFormat timeFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_TIME, Locale.CHINA);
-        try {
-            Date date = dateFormat.parse(clock);
-            time = timeFormat.parse(timeFormat.format(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return time;
-    }
-
-    private Date getParseTime(String clock) {
-        Date time = null;
-        SimpleDateFormat timeFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_TIME, Locale.CHINA);
-        try {
-            time = timeFormat.parse(clock);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return time;
     }
 
     private void readTxtFile(String filePath) {
@@ -82,9 +56,9 @@ public class ParseText extends Parse<TxtEntity> implements IParse {
         String strr = str.trim();
         String[] abc = strr.split("\\t");
         bean.setJobNumber(abc[0]);
-        bean.setClock(abc[1]);
+        bean.setDate(abc[1]);
         System.out.println(bean.getJobNumber());
-        System.out.println(bean.getClock());
+        System.out.println(bean.getDate());
         return bean;
     }
 
@@ -95,20 +69,20 @@ public class ParseText extends Parse<TxtEntity> implements IParse {
      */
     public void getAbnormalJobNomber() {
         mHashMap.clear();
-        final Date MORNING = getParseTime(GwiConfigs.WorkTime.MORNING);
-        final Date AFTERNOON = getParseTime(GwiConfigs.WorkTime.AFTERNOON);
+        final Date MORNING = CommonUtils.getParseTime(GwiConfigs.WorkTime.MORNING);
+        final Date AFTERNOON = CommonUtils.getParseTime(GwiConfigs.WorkTime.AFTERNOON);
 
         for (TxtEntity entity : mParseList) {
-            Date date = getParseDate(entity.getClock());
+            Date date = CommonUtils.getParseDate(entity.getDate());
 
             // 打卡异常的员工
             if (date.after(MORNING) && date.before(AFTERNOON)) {
                 // 有过打卡异常
                 StringBuffer sb = new StringBuffer();
-                sb.append(entity.getClock()).append("<br>");
+                sb.append(entity.getDate()).append("<br>");
                 if (mHashMap.containsKey(entity.getJobNumber())) {
                     String clock = mHashMap.get(entity.getJobNumber());
-                    sb.append(clock).append("<br>").append(entity.getClock()).append("<br>");
+                    sb.append(clock).append("<br>").append(entity.getDate()).append("<br>");
                 }
                 mHashMap.put(entity.getJobNumber(), sb.toString());
             }

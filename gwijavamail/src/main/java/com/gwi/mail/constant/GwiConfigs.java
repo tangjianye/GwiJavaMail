@@ -18,6 +18,7 @@ public class GwiConfigs {
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMAT_DAY = "yyyy-MM-dd";
     public static final String DATE_FORMAT_TIME = "HH:mm:ss";
+    public static final String DATE_FORMAT_HHMM = "HH:mm";
 
     public static class Mail {
         // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
