@@ -2,7 +2,7 @@ package com.gwi.mail.ui;
 
 import com.gwi.mail.constant.GwiConfigs;
 import com.gwi.mail.mail.MailManager;
-import com.gwi.mail.parse.ParseJxlExcel;
+import com.gwi.mail.parse.ParseExcelJxl;
 import com.gwi.mail.parse.ParseStrategy;
 
 import java.awt.Font;
@@ -61,7 +61,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ParseStrategy parse = new ParseStrategy(new ParseJxlExcel());
+                ParseStrategy parse = new ParseStrategy(new ParseExcelJxl());
                 HashMap<String, String> hashMap = parse.doParse(filePath);
 
                 for (Map.Entry<String, String> entry : hashMap.entrySet()) {
