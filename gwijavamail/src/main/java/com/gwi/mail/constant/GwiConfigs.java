@@ -13,8 +13,8 @@ public class GwiConfigs {
     public static final String LABEL_ABSENTEEISM_AFTERNOON = "下班异常：";
     public static final String LABEL_CLOCK_TIME = "打卡异常：";
 
-    public static final String MAIL_FROM = "GWI Abnormal attendance";
-    public static final String MAIL_SUBJECT = "考勤异常";
+    public static final String MAIL_FROM = "考勤异常";
+    public static final String MAIL_SUBJECT = "考勤异常通知";
     public static final String MAIL_CONTENT = "考勤异常时间列表: ";
 
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -24,10 +24,8 @@ public class GwiConfigs {
 
     public static class Mail {
         // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
-        // public static final String SEND_EMAIL_ACCOUNT = "ccylyfb@gwi.com.cn";
-        // public static final String SEND_EMAIL_PASSWORD = "ccylyfb0048";
-        public static final String SEND_EMAIL_ACCOUNT = "1110825@gwi.com.cn";
-        public static final String SEND_EMAIL_PASSWORD = "password";
+         public static final String SEND_EMAIL_ACCOUNT = "9990019@gwi.com.cn";
+         public static final String SEND_EMAIL_PASSWORD = "ccyl0809";
 
         // 发件人邮箱的 SMTP 服务器地址, 必须准确, 不同邮件服务器地址不同, 一般格式为: smtp.xxx.com
         // 网易163邮箱的 SMTP 服务器地址为: smtp.163.com
