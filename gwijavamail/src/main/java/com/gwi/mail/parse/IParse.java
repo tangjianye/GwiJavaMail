@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public interface IParse {
     /**
-     * 符合的第一个string是工号|第二个string是邮件内容
+     * <邮箱账号，邮件内容>
      *
      * @param filePath 解析的文件路径
      * @return
