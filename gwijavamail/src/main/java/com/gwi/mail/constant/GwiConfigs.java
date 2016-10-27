@@ -4,7 +4,7 @@ package com.gwi.mail.constant;
  * Created by Administrator on 2016-10-25.
  */
 public class GwiConfigs {
-    public static final String LABEL_DOCUMENT = "选择考勤文档（.txt）";
+    public static final String LABEL_DOCUMENT = "选择考勤文档（.xls）";
     public static final String LABEL_CHOICE = "选择";
     public static final String LABEL_TITLE = "完成";
     public static final String LABEL_MSG = "发出%s封邮件";
