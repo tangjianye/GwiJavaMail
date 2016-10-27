@@ -44,4 +44,14 @@ public class ExcelEntity {
     public void setSignInTime(String signInTime) {
         this.signInTime = signInTime;
     }
+
+    @Override
+    public String toString() {
+        return "ExcelEntity{" +
+                "date='" + date + '\'' +
+                ", jobNumber='" + jobNumber + '\'' +
+                ", signInTime='" + signInTime + '\'' +
+                ", returnTime='" + returnTime + '\'' +
+                '}';
+    }
 }

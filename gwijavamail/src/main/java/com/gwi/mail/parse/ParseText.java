@@ -16,7 +16,7 @@ import java.util.Locale;
 /**
  * Created by Administrator on 2016-10-25.
  */
-public class ParseText extends Parse implements IParse {
+public class ParseText extends Parse<TxtEntity> implements IParse {
     private static final String ENCODING = "GBK";
 
     public ParseText() {

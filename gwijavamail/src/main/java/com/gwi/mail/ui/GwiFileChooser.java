@@ -2,8 +2,8 @@ package com.gwi.mail.ui;
 
 import com.gwi.mail.constant.GwiConfigs;
 import com.gwi.mail.mail.MailManager;
+import com.gwi.mail.parse.ParseJxlExcel;
 import com.gwi.mail.parse.ParseStrategy;
-import com.gwi.mail.parse.ParseText;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -50,6 +50,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
                 System.out.println("Folder:" + file.getAbsolutePath());
             } else if (file.isFile()) {
                 // "C:/Users/Administrator/Desktop/kaoqin/kq.txt"
+                // "C:/Users/Administrator/Desktop/kaoqin/002.xls"
                 System.out.println("File:" + file.getAbsolutePath());
                 work(file.getAbsolutePath());
             }
@@ -60,7 +61,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ParseStrategy parse = new ParseStrategy(new ParseText());
+                ParseStrategy parse = new ParseStrategy(new ParseJxlExcel());
                 HashMap<String, String> hashMap = parse.doParse(filePath);
 
                 for (Map.Entry<String, String> entry : hashMap.entrySet()) {

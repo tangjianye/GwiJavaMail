@@ -38,12 +38,14 @@ public class GwiConfigs {
     }
 
     /**
+     * Excel表里面每一列的抬头
+     * <p/>
      * 1）旷工：签到时间 && 签退时间 都为空
      * 2）迟到|早退：
      * a.签到时间或签退时间有一个为空
      * b.签到时间和签退时间不为空，但是在8:30到17:00之间
      */
-    public static class CellLabel {
+    public static class ColumnLabel {
         public static final String 考勤号码 = "考勤号码";
         public static final String 日期 = "日期";
         public static final String 签到时间 = "签到时间";
