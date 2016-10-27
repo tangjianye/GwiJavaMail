@@ -15,7 +15,9 @@ import java.util.Locale;
 
 /**
  * Created by Administrator on 2016-10-25.
+ * 解析逻辑需要优化
  */
+@Deprecated
 public class ParseText extends Parse<TxtEntity> implements IParse {
     private static final String ENCODING = "GBK";
 
@@ -103,10 +105,10 @@ public class ParseText extends Parse<TxtEntity> implements IParse {
             if (date.after(MORNING) && date.before(AFTERNOON)) {
                 // 有过打卡异常
                 StringBuffer sb = new StringBuffer();
-                sb.append(entity.getClock());
+                sb.append(entity.getClock()).append("<br>");
                 if (mHashMap.containsKey(entity.getJobNumber())) {
                     String clock = mHashMap.get(entity.getJobNumber());
-                    sb.append("<br>").append(clock).append("<br>").append(entity.getClock());
+                    sb.append(clock).append("<br>").append(entity.getClock()).append("<br>");
                 }
                 mHashMap.put(entity.getJobNumber(), sb.toString());
             }

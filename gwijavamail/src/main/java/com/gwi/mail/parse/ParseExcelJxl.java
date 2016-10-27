@@ -4,6 +4,7 @@ import com.gwi.mail.constant.GwiConfigs;
 import com.gwi.mail.entity.ExcelEntity;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import jxl.Cell;
@@ -30,8 +31,8 @@ public class ParseExcelJxl extends Parse<ExcelEntity> implements IParse {
                 ExcelEntity entity = new ExcelEntity();
                 for (int column = 0; column < sheet.getColumns(); column++) {
                     Cell cell = sheet.getCell(column, row);
-                    String outPut = cell.getContents();
-                    String columnLabel = sheet.getCell(column, 0).getContents();
+                    String outPut = cell.getContents().trim();
+                    String columnLabel = sheet.getCell(column, 0).getContents().trim();
                     if (filterColumns(columnLabel) && 0 != row) {
                         creatEntity(entity, columnLabel, outPut);
                     }
@@ -70,6 +71,51 @@ public class ParseExcelJxl extends Parse<ExcelEntity> implements IParse {
                 || GwiConfigs.ColumnLabel.日期.equals(outPut)
                 || GwiConfigs.ColumnLabel.签到时间.equals(outPut)
                 || GwiConfigs.ColumnLabel.签退时间.equals(outPut);
+    }
+
+    /**
+     * 获取打卡异常员工工号
+     *
+     * @return
+     */
+    private void getAbnormalJobNomber(ArrayList<ExcelEntity> list) {
+        mHashMap.clear();
+        for (ExcelEntity entity : list) {
+            if (entity.getSignInTime() != null && entity.getReturnTime() != null) {
+
+            } else if (entity.getSignInTime() == null) {
+                // 上班未打卡
+                StringBuffer sb = new StringBuffer();
+                sb.append(GwiConfigs.LABEL_CLOCK_TIME).append("<br>")
+                        .append(entity.getDate()).append(" ").append(entity.getReturnTime()).append("<br>");
+                if (mHashMap.containsKey(entity.getJobNumber())) {
+                    String out = mHashMap.get(entity.getJobNumber());
+                    sb.append(out).append("<br>")
+                            .append(entity.getDate()).append(" ").append(entity.getReturnTime()).append("<br>");
+                }
+                mHashMap.put(entity.getJobNumber(), sb.toString());
+            } else if (entity.getReturnTime() == null) {
+                // 下班未打卡
+                StringBuffer sb = new StringBuffer();
+                sb.append(GwiConfigs.LABEL_CLOCK_TIME).append("<br>")
+                        .append(entity.getDate()).append(" ").append(entity.getSignInTime()).append("<br>");
+                if (mHashMap.containsKey(entity.getJobNumber())) {
+                    String out = mHashMap.get(entity.getJobNumber());
+                    sb.append(out).append("<br>")
+                            .append(entity.getDate()).append(" ").append(entity.getSignInTime()).append("<br>");
+                }
+                mHashMap.put(entity.getJobNumber(), sb.toString());
+            } else {
+                // 旷工
+                StringBuffer sb = new StringBuffer();
+                sb.append(GwiConfigs.LABEL_ABSENTEEISM).append("<br>").append(entity.getDate()).append("<br>");
+                if (mHashMap.containsKey(entity.getJobNumber())) {
+                    String out = mHashMap.get(entity.getJobNumber());
+                    sb.append(out).append("<br>").append(entity.getDate()).append("<br>");
+                }
+                mHashMap.put(entity.getJobNumber(), sb.toString());
+            }
+        }
     }
 
     @Override
