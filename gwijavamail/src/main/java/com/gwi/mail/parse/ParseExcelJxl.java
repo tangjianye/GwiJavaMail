@@ -88,55 +88,55 @@ public class ParseExcelJxl extends Parse implements IParse {
     private void getAbnormalJobNomber(ArrayList<ExcelEntity> list) {
         mHashMap.clear();
 
-        StringBuffer sb = new StringBuffer();
+        // StringBuffer sb = new StringBuffer();
         for (ExcelEntity entity : list) {
-
             if (CommonUtils.isEmpty(entity.getSignInTime()) && CommonUtils.isEmpty(entity.getReturnTime())) {
                 // 旷工
-                sb = getContent(GwiConfigs.LABEL_ABSENTEEISM, entity.getJobNumber(), entity.getDate(), "");
+                StringBuffer sb = getContent(GwiConfigs.LABEL_ABSENTEEISM, entity.getJobNumber(), entity.getDate(), "");
                 mHashMap.put(entity.getJobNumber(), sb.toString());
+                sb.setLength(0);
             } else if (CommonUtils.isEmpty(entity.getSignInTime())) {
                 // 上班未打卡
-                sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getReturnTime());
+                StringBuffer sb = getContent(GwiConfigs.LABEL_ABSENTEEISM_MORNING, entity.getJobNumber(), entity.getDate(), entity.getReturnTime());
                 mHashMap.put(entity.getJobNumber(), sb.toString());
+                sb.setLength(0);
             } else if (CommonUtils.isEmpty(entity.getReturnTime())) {
                 // 下班未打卡
-                sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
+                StringBuffer sb = getContent(GwiConfigs.LABEL_ABSENTEEISM_AFTERNOON, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
                 mHashMap.put(entity.getJobNumber(), sb.toString());
+                sb.setLength(0);
             } else {
                 // 上午
-                StringBuffer morning = checkDate(CommonUtils.getParseTime(entity.getSignInTime(), GwiConfigs.DATE_FORMAT_HHMM), entity);
-                if (null != morning) {
-                    sb.append(morning);
+                if (checkDate(entity.getSignInTime())) {
+                    StringBuffer sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
+                    mHashMap.put(entity.getJobNumber(), sb.toString());
+                    sb.setLength(0);
                 }
                 // 下午
-                StringBuffer afternoon = checkDate(CommonUtils.getParseTime(entity.getReturnTime(), GwiConfigs.DATE_FORMAT_HHMM), entity);
-                if (null != afternoon) {
-                    sb.append(afternoon);
+                if (checkDate(entity.getReturnTime())) {
+                    StringBuffer sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getReturnTime());
+                    mHashMap.put(entity.getJobNumber(), sb.toString());
+                    sb.setLength(0);
                 }
-                mHashMap.put(entity.getJobNumber(), sb.toString());
             }
         }
     }
 
-    private StringBuffer checkDate(Date date, ExcelEntity entity) {
-        StringBuffer sb = new StringBuffer();
+    private boolean checkDate(String time) {
         final Date MORNING = CommonUtils.getParseTime(GwiConfigs.WorkTime.MORNING);
         final Date AFTERNOON = CommonUtils.getParseTime(GwiConfigs.WorkTime.AFTERNOON);
-        if (date.after(MORNING) && date.before(AFTERNOON)) {
-            sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
-        }
-        return sb;
+        Date date = CommonUtils.getParseHHMM(time);
+        return date.after(MORNING) && date.before(AFTERNOON);
     }
 
     private StringBuffer getContent(String tips, String jobNomber, String date, String time) {
         StringBuffer sb = new StringBuffer();
-        sb.append(tips).append("<br>")
-                .append(date).append(" ").append(time).append("<br>");
         if (mHashMap.containsKey(jobNomber)) {
             String out = mHashMap.get(jobNomber);
-            sb.append(out).append("<br>")
-                    .append(date).append(" ").append(time).append("<br>");
+            sb.append(out).append(tips).append(date).append(" ").append(time).append("<br>");
+            mHashMap.remove(jobNomber);
+        } else {
+            sb.append(tips).append(date).append(" ").append(time).append("<br>");
         }
         return sb;
     }
