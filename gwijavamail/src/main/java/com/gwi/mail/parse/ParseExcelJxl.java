@@ -88,33 +88,33 @@ public class ParseExcelJxl extends Parse implements IParse {
     private void getAbnormalJobNomber(ArrayList<ExcelEntity> list) {
         mHashMap.clear();
 
-        // StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         for (ExcelEntity entity : list) {
             if (CommonUtils.isEmpty(entity.getSignInTime()) && CommonUtils.isEmpty(entity.getReturnTime())) {
                 // 旷工
-                StringBuffer sb = getContent(GwiConfigs.LABEL_ABSENTEEISM, entity.getJobNumber(), entity.getDate(), "");
+                sb = getContent(GwiConfigs.LABEL_ABSENTEEISM, entity.getJobNumber(), entity.getDate(), "");
                 mHashMap.put(entity.getJobNumber(), sb.toString());
                 sb.setLength(0);
             } else if (CommonUtils.isEmpty(entity.getSignInTime())) {
                 // 上班未打卡
-                StringBuffer sb = getContent(GwiConfigs.LABEL_ABSENTEEISM_MORNING, entity.getJobNumber(), entity.getDate(), entity.getReturnTime());
+                sb = getContent(GwiConfigs.LABEL_ABSENTEEISM_MORNING, entity.getJobNumber(), entity.getDate(), entity.getReturnTime());
                 mHashMap.put(entity.getJobNumber(), sb.toString());
                 sb.setLength(0);
             } else if (CommonUtils.isEmpty(entity.getReturnTime())) {
                 // 下班未打卡
-                StringBuffer sb = getContent(GwiConfigs.LABEL_ABSENTEEISM_AFTERNOON, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
+                sb = getContent(GwiConfigs.LABEL_ABSENTEEISM_AFTERNOON, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
                 mHashMap.put(entity.getJobNumber(), sb.toString());
                 sb.setLength(0);
             } else {
                 // 上午
                 if (checkDate(entity.getSignInTime())) {
-                    StringBuffer sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
+                    sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getSignInTime());
                     mHashMap.put(entity.getJobNumber(), sb.toString());
                     sb.setLength(0);
                 }
                 // 下午
                 if (checkDate(entity.getReturnTime())) {
-                    StringBuffer sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getReturnTime());
+                    sb = getContent(GwiConfigs.LABEL_CLOCK_TIME, entity.getJobNumber(), entity.getDate(), entity.getReturnTime());
                     mHashMap.put(entity.getJobNumber(), sb.toString());
                     sb.setLength(0);
                 }
@@ -131,12 +131,13 @@ public class ParseExcelJxl extends Parse implements IParse {
 
     private StringBuffer getContent(String tips, String jobNomber, String date, String time) {
         StringBuffer sb = new StringBuffer();
+        String formatTime = CommonUtils.isEmpty(time) ? "" : CommonUtils.getFormatHHMM(time);
         if (mHashMap.containsKey(jobNomber)) {
             String out = mHashMap.get(jobNomber);
-            sb.append(out).append(tips).append(date).append(" ").append(time).append("<br>");
+            sb.append(out).append(tips).append(date).append(" ").append(formatTime).append("<br>");
             mHashMap.remove(jobNomber);
         } else {
-            sb.append(tips).append(date).append(" ").append(time).append("<br>");
+            sb.append(tips).append(date).append(" ").append(formatTime).append("<br>");
         }
         return sb;
     }

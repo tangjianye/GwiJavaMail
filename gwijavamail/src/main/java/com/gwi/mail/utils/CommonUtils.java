@@ -52,24 +52,6 @@ public class CommonUtils {
     }
 
     /**
-     * 解析时间
-     *
-     * @param clock
-     * @param format
-     * @return
-     */
-    public static Date getParseTime(String clock, String format) {
-        Date time = null;
-        SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.CHINA);
-        try {
-            time = timeFormat.parse(clock);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return time;
-    }
-
-    /**
      * 解析 HH:mm
      *
      * @param clock
@@ -82,6 +64,43 @@ public class CommonUtils {
         try {
             Date date = dateFormat.parse(clock);
             time = timeFormat.parse(timeFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
+    /**
+     * 解析 HH:mm
+     *
+     * @param clock
+     * @return
+     */
+    public static String getFormatHHMM(String clock) {
+        String time = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_HHMM, Locale.CHINA);
+        SimpleDateFormat timeFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_TIME, Locale.CHINA);
+        try {
+            Date date = dateFormat.parse(clock);
+            time = timeFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
+
+    /**
+     * 解析时间
+     *
+     * @param clock
+     * @param format
+     * @return
+     */
+    public static Date getParseTime(String clock, String format) {
+        Date time = null;
+        SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.CHINA);
+        try {
+            time = timeFormat.parse(clock);
         } catch (ParseException e) {
             e.printStackTrace();
         }
