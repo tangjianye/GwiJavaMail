@@ -9,7 +9,9 @@ public class GwiConfigs {
     public static final String LABEL_TITLE = "完成";
     public static final String LABEL_MSG = "发出%s封邮件";
     public static final String LABEL_ABSENTEEISM = "旷工时间：";
-    public static final String LABEL_CLOCK_TIME = "打卡时间：";
+    public static final String LABEL_ABSENTEEISM_MORNING = "上班异常：";
+    public static final String LABEL_ABSENTEEISM_AFTERNOON = "下班异常：";
+    public static final String LABEL_CLOCK_TIME = "打卡异常：";
 
     public static final String MAIL_FROM = "GWI Abnormal attendance";
     public static final String MAIL_SUBJECT = "考勤异常";

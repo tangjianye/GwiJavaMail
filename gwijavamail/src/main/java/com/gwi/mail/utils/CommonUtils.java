@@ -68,4 +68,23 @@ public class CommonUtils {
         }
         return time;
     }
+
+    /**
+     * 解析 HH:mm
+     *
+     * @param clock
+     * @return
+     */
+    public static Date getParseHHMM(String clock) {
+        Date time = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_HHMM, Locale.CHINA);
+        SimpleDateFormat timeFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_TIME, Locale.CHINA);
+        try {
+            Date date = dateFormat.parse(clock);
+            time = timeFormat.parse(timeFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
 }
