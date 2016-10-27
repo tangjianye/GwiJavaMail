@@ -2,7 +2,8 @@ package com.gwi.mail.ui;
 
 import com.gwi.mail.constant.GwiConfigs;
 import com.gwi.mail.mail.MailManager;
-import com.gwi.mail.parse.ParseManager;
+import com.gwi.mail.parse.ParseStrategy;
+import com.gwi.mail.parse.ParseText;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -59,7 +60,8 @@ public class GwiFileChooser extends JFrame implements ActionListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                HashMap<String, String> hashMap = ParseManager.getInstance().parse(filePath);
+                ParseStrategy parse = new ParseStrategy(new ParseText());
+                HashMap<String, String> hashMap = parse.doParse(filePath);
 
                 for (Map.Entry<String, String> entry : hashMap.entrySet()) {
                     System.out.println("Email:" + entry.getKey() + " Content:" + entry.getValue());

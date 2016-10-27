@@ -1,6 +1,7 @@
 package com.gwi.mail.parse;
 
 import java.io.File;
+import java.util.HashMap;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -9,17 +10,21 @@ import jxl.Workbook;
 /**
  * Created by Administrator on 2016-10-26.
  */
-public class ParseXlsManager {
-    private static ParseXlsManager ourInstance = new ParseXlsManager();
+public class ParseExcel implements IParse {
+    //    private static ParseExcel ourInstance = new ParseExcel();
+//
+//    public static ParseExcel getInstance() {
+//        return ourInstance;
+//    }
 
-    public static ParseXlsManager getInstance() {
-        return ourInstance;
-    }
-
-    private ParseXlsManager() {
+    public ParseExcel() {
     }
 
     public static void main(String args[]) {
+
+    }
+
+    private void readExcelFile(String filePath) {
         try {
             Workbook book = Workbook.getWorkbook(new File("C:/Users/Administrator/Desktop/kaoqin/002.xls"));
             //  获得第一个工作表对象
@@ -33,5 +38,10 @@ public class ParseXlsManager {
             //System.out.println(e);
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public HashMap<String, String> parse(String filePath) {
+        return null;
     }
 }
