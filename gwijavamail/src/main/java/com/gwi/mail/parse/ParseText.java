@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
  * 解析逻辑需要优化
  */
 @Deprecated
-public class ParseText extends Parse<TxtEntity> implements IParse {
+public class ParseText extends Parse implements IParse {
     private static final String ENCODING = "GBK";
 
     public ParseText() {
@@ -24,20 +25,22 @@ public class ParseText extends Parse<TxtEntity> implements IParse {
     }
 
     private void readTxtFile(String filePath) {
-        mParseList.clear();
         try {
             File file = new File(filePath);
             if (file.isFile() && file.exists()) {
                 InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING);
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt = null;
+                ArrayList<TxtEntity> list = new ArrayList<>();
                 while ((lineTxt = bufferedReader.readLine()) != null) {
                     System.out.println(lineTxt);
                     TxtEntity bean = parseStr(lineTxt);
                     if (null != bean) {
-                        mParseList.add(bean);
+                        list.add(bean);
                     }
                 }
+                // 解析打卡异常的工号
+                getAbnormalJobNomber(list);
                 read.close();
             } else {
                 System.out.println("找不到指定的文件");
@@ -67,12 +70,12 @@ public class ParseText extends Parse<TxtEntity> implements IParse {
      *
      * @return
      */
-    public void getAbnormalJobNomber() {
+    public void getAbnormalJobNomber(ArrayList<TxtEntity> list) {
         mHashMap.clear();
         final Date MORNING = CommonUtils.getParseTime(GwiConfigs.WorkTime.MORNING);
         final Date AFTERNOON = CommonUtils.getParseTime(GwiConfigs.WorkTime.AFTERNOON);
 
-        for (TxtEntity entity : mParseList) {
+        for (TxtEntity entity : list) {
             Date date = CommonUtils.getParseDate(entity.getDate());
 
             // 打卡异常的员工
@@ -91,10 +94,7 @@ public class ParseText extends Parse<TxtEntity> implements IParse {
 
     @Override
     public HashMap<String, String> parse(String filePath) {
-        // 解析原始的打卡数据
         readTxtFile(filePath);
-        // 解析打卡异常的工号
-        getAbnormalJobNomber();
         return mHashMap;
     }
 }

@@ -16,7 +16,7 @@ import jxl.Workbook;
 /**
  * Created by Administrator on 2016-10-26.
  */
-public class ParseExcelJxl extends Parse<ExcelEntity> implements IParse {
+public class ParseExcelJxl extends Parse implements IParse {
 
     public ParseExcelJxl() {
         super();
