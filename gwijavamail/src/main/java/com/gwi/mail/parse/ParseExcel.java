@@ -10,14 +10,10 @@ import jxl.Workbook;
 /**
  * Created by Administrator on 2016-10-26.
  */
-public class ParseExcel implements IParse {
-    //    private static ParseExcel ourInstance = new ParseExcel();
-//
-//    public static ParseExcel getInstance() {
-//        return ourInstance;
-//    }
+public class ParseExcel extends Parse implements IParse {
 
     public ParseExcel() {
+        super();
     }
 
     public static void main(String args[]) {
@@ -42,6 +38,7 @@ public class ParseExcel implements IParse {
 
     @Override
     public HashMap<String, String> parse(String filePath) {
-        return null;
+        readExcelFile(filePath);
+        return mHashMap;
     }
 }

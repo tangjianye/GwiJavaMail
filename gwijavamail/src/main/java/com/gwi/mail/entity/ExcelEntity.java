@@ -3,7 +3,7 @@ package com.gwi.mail.entity;
 /**
  * Created by Administrator on 2016-10-25.
  */
-public class AttendanceEntity {
+public class ExcelEntity {
     // 考勤号码
     private String jobNumber;
     // 日期
@@ -12,16 +12,6 @@ public class AttendanceEntity {
     private String signInTime;
     // 签退时间
     private String returnTime;
-    // 打卡时间
-    private String clock;
-
-    public String getClock() {
-        return clock;
-    }
-
-    public void setClock(String clock) {
-        this.clock = clock;
-    }
 
     public String getJobNumber() {
         return jobNumber;

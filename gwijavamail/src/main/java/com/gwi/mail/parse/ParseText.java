@@ -1,7 +1,7 @@
 package com.gwi.mail.parse;
 
 import com.gwi.mail.constant.GwiConfigs;
-import com.gwi.mail.entity.AttendanceEntity;
+import com.gwi.mail.entity.TxtEntity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,7 +57,7 @@ public class ParseText extends Parse implements IParse {
                 String lineTxt = null;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
                     System.out.println(lineTxt);
-                    AttendanceEntity bean = parseStr(lineTxt);
+                    TxtEntity bean = parseStr(lineTxt);
                     if (null != bean) {
                         mParseList.add(bean);
                     }
@@ -72,11 +72,11 @@ public class ParseText extends Parse implements IParse {
         }
     }
 
-    private AttendanceEntity parseStr(String str) {
+    private TxtEntity parseStr(String str) {
         if (null == str) {
             return null;
         }
-        AttendanceEntity bean = new AttendanceEntity();
+        TxtEntity bean = new TxtEntity();
         String strr = str.trim();
         String[] abc = strr.split("\\t");
         bean.setJobNumber(abc[0]);
@@ -91,12 +91,12 @@ public class ParseText extends Parse implements IParse {
      *
      * @return
      */
-    public HashMap<String, String> getAbnormalJobNomber() {
+    public void getAbnormalJobNomber() {
         mHashMap.clear();
         final Date MORNING = getParseTime(GwiConfigs.WorkTime.MORNING);
         final Date AFTERNOON = getParseTime(GwiConfigs.WorkTime.AFTERNOON);
 
-        for (AttendanceEntity entity : mParseList) {
+        for (TxtEntity entity : mParseList) {
             Date date = getParseDate(entity.getClock());
 
             // 打卡异常的员工
@@ -111,7 +111,6 @@ public class ParseText extends Parse implements IParse {
                 mHashMap.put(entity.getJobNumber(), sb.toString());
             }
         }
-        return mHashMap;
     }
 
     @Override
@@ -119,6 +118,7 @@ public class ParseText extends Parse implements IParse {
         // 解析原始的打卡数据
         readTxtFile(filePath);
         // 解析打卡异常的工号
-        return getAbnormalJobNomber();
+        getAbnormalJobNomber();
+        return mHashMap;
     }
 }

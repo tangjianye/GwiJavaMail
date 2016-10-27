@@ -1,6 +1,6 @@
 package com.gwi.mail.parse;
 
-import com.gwi.mail.entity.AttendanceEntity;
+import com.gwi.mail.entity.TxtEntity;
 import com.gwi.mail.constant.GwiConfigs;
 
 import java.io.BufferedReader;
@@ -20,7 +20,7 @@ import java.util.Locale;
 @Deprecated
 public class ParseManager {
     private static final String ENCODING = "GBK";
-    private ArrayList<AttendanceEntity> mParseList;
+    private ArrayList<TxtEntity> mParseList;
     private HashMap<String, String> mHashMap;
 
     private static ParseManager ourInstance = new ParseManager();
@@ -79,7 +79,7 @@ public class ParseManager {
                 String lineTxt = null;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
                     System.out.println(lineTxt);
-                    AttendanceEntity bean = parseStr(lineTxt);
+                    TxtEntity bean = parseStr(lineTxt);
                     if (null != bean) {
                         mParseList.add(bean);
                     }
@@ -94,11 +94,11 @@ public class ParseManager {
         }
     }
 
-    private AttendanceEntity parseStr(String str) {
+    private TxtEntity parseStr(String str) {
         if (null == str) {
             return null;
         }
-        AttendanceEntity bean = new AttendanceEntity();
+        TxtEntity bean = new TxtEntity();
         String strr = str.trim();
         String[] abc = strr.split("\\t");
         bean.setJobNumber(abc[0]);
@@ -131,7 +131,7 @@ public class ParseManager {
         final Date MORNING = getParseTime(GwiConfigs.WorkTime.MORNING);
         final Date AFTERNOON = getParseTime(GwiConfigs.WorkTime.AFTERNOON);
 
-        for (AttendanceEntity entity : mParseList) {
+        for (TxtEntity entity : mParseList) {
             Date date = getParseDate(entity.getClock());
 
             // 打卡异常的员工
