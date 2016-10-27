@@ -79,7 +79,7 @@ public class CommonUtils {
     public static String getFormatHHMM(String clock) {
         String time = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_HHMM, Locale.CHINA);
-        SimpleDateFormat timeFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_TIME, Locale.CHINA);
+        SimpleDateFormat timeFormat = new SimpleDateFormat(GwiConfigs.DATE_FORMAT_HHMM, Locale.CHINA);
         try {
             Date date = dateFormat.parse(clock);
             time = timeFormat.format(date);
