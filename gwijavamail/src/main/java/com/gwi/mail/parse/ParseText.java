@@ -82,10 +82,12 @@ public class ParseText extends Parse implements IParse {
             if (date.after(MORNING) && date.before(AFTERNOON)) {
                 // 有过打卡异常
                 StringBuffer sb = new StringBuffer();
-                sb.append(entity.getDate()).append("<br>");
                 if (mHashMap.containsKey(entity.getJobNumber())) {
                     String clock = mHashMap.get(entity.getJobNumber());
-                    sb.append(clock).append("<br>").append(entity.getDate()).append("<br>");
+                    sb.append(clock).append(entity.getDate()).append("<br>");
+                    mHashMap.remove(entity.getJobNumber());
+                } else {
+                    sb.append(entity.getDate()).append("<br>");
                 }
                 mHashMap.put(entity.getJobNumber(), sb.toString());
             }
