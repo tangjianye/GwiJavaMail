@@ -70,7 +70,7 @@ public class ParseText extends Parse implements IParse {
      *
      * @return
      */
-    public void getAbnormalJobNomber(ArrayList<TxtEntity> list) {
+    private void getAbnormalJobNomber(ArrayList<TxtEntity> list) {
         mHashMap.clear();
         final Date MORNING = CommonUtils.getParseTime(GwiConfigs.WorkTime.MORNING);
         final Date AFTERNOON = CommonUtils.getParseTime(GwiConfigs.WorkTime.AFTERNOON);
