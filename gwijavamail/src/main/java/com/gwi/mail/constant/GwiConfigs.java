@@ -24,8 +24,8 @@ public class GwiConfigs {
 
     public static class Mail {
         // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
-         public static final String SEND_EMAIL_ACCOUNT = "9990019@gwi.com.cn";
-         public static final String SEND_EMAIL_PASSWORD = "ccyl0809";
+        public static final String SEND_EMAIL_ACCOUNT = "9990019@gwi.com.cn";
+        public static final String SEND_EMAIL_PASSWORD = "ccyl0809";
 
         // 发件人邮箱的 SMTP 服务器地址, 必须准确, 不同邮件服务器地址不同, 一般格式为: smtp.xxx.com
         // 网易163邮箱的 SMTP 服务器地址为: smtp.163.com
@@ -35,6 +35,9 @@ public class GwiConfigs {
         public static final String RECEIVE_EMAIL_SUFFIX = "@gwi.com.cn";
     }
 
+    /**
+     * 迟到早退的时间判断条件
+     */
     public static class WorkTime {
         public static final String MORNING = "08:35:59";
         public static final String AFTERNOON = "16:55:00";
@@ -42,7 +45,7 @@ public class GwiConfigs {
 
     /**
      * Excel表里面每一列的抬头
-     * <p/>
+     * <p>
      * 1）旷工：签到时间 && 签退时间 都为空
      * 2）迟到|早退：
      * a.签到时间或签退时间有一个为空
