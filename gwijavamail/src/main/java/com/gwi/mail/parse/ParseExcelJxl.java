@@ -4,7 +4,6 @@ import com.gwi.mail.entity.ExcelEntity;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -13,13 +12,14 @@ import jxl.Workbook;
 /**
  * Created by Administrator on 2016-10-26.
  */
-public class ParseExcelJxl extends Parse implements IParse {
+public class ParseExcelJxl extends ParseGwiExcel implements IParse {
 
     public ParseExcelJxl() {
         super();
     }
 
-    private void readExcelFile(String filePath) {
+    @Override
+    public void readExcelFile(String filePath) {
         try {
             ArrayList<ExcelEntity> list = new ArrayList<>();
 
@@ -49,11 +49,5 @@ public class ParseExcelJxl extends Parse implements IParse {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public HashMap<String, String> parse(String filePath) {
-        readExcelFile(filePath);
-        return mHashMap;
     }
 }

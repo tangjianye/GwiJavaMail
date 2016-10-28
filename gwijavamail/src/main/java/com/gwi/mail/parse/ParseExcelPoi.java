@@ -17,15 +17,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class ParseExcelPoi  extends Parse implements IParse {
+public class ParseExcelPoi extends ParseGwiExcel implements IParse {
 
     public ParseExcelPoi() {
         super();
     }
 
-    private void readExcelFile(String filePath) {
+    @Override
+    public void readExcelFile(String filePath) {
         try {
             ArrayList<ExcelEntity> list = new ArrayList<>();
 
@@ -113,11 +113,5 @@ public class ParseExcelPoi  extends Parse implements IParse {
                 cellValue = "";
         }
         return cellValue;
-    }
-
-    @Override
-    public HashMap<String, String> parse(String filePath) {
-        readExcelFile(filePath);
-        return mHashMap;
     }
 }

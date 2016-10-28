@@ -40,7 +40,7 @@ public class ParseText extends Parse implements IParse {
                     }
                 }
                 // 解析打卡异常的工号
-                getAbnormalJobNomberTxt(list);
+                getAbnormalJobNomber(list);
                 read.close();
             } else {
                 System.out.println("找不到指定的文件");
@@ -70,7 +70,7 @@ public class ParseText extends Parse implements IParse {
      *
      * @return
      */
-    private void getAbnormalJobNomberTxt(ArrayList<TxtEntity> list) {
+    private void getAbnormalJobNomber(ArrayList<TxtEntity> list) {
         mHashMap.clear();
         final Date MORNING = CommonUtils.getParseTime(GwiConfigs.WorkTime.MORNING);
         final Date AFTERNOON = CommonUtils.getParseTime(GwiConfigs.WorkTime.AFTERNOON);
