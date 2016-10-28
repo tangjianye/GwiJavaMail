@@ -49,7 +49,6 @@ public class GwiFileChooser extends JFrame implements ActionListener {
             if (file.isDirectory()) {
                 System.out.println("Folder:" + file.getAbsolutePath());
             } else if (file.isFile()) {
-                // "C:/Users/Administrator/Desktop/kaoqin/kq.txt"
                 // "C:/Users/Administrator/Desktop/kaoqin/002.xls"
                 System.out.println("File:" + file.getAbsolutePath());
                 work(file.getAbsolutePath());
