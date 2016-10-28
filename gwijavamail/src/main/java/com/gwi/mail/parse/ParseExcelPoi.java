@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+/**
+ * 要测试其他东西，因为改了JXL
+ */
+@Deprecated
 public class ParseExcelPoi extends ParseGwiExcel implements IParse {
 
     public ParseExcelPoi() {

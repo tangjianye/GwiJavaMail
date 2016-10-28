@@ -1,6 +1,7 @@
 package com.gwi.mail.parse;
 
 import com.gwi.mail.entity.ExcelEntity;
+import com.gwi.mail.utils.CommonUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,8 +39,10 @@ public class ParseExcelJxl extends ParseGwiExcel implements IParse {
                         creatEntity(entity, columnLabel, outPut);
                     }
                 }
-                System.out.println(entity.toString());
-                list.add(entity);
+                if (CommonUtils.validJobNomber(entity.getJobNumber())) {
+                    System.out.println(entity.toString());
+                    list.add(entity);
+                }
             }
 
             // 获取打卡异常员工工号

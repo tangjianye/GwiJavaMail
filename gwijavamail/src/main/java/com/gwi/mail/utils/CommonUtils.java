@@ -106,4 +106,22 @@ public class CommonUtils {
         }
         return time;
     }
+
+    /**
+     * 工号是否有效
+     *
+     * @param jobNumber
+     * @return 有效true 无效false
+     */
+    public static boolean validJobNomber(String jobNumber) {
+        // 1110825
+        if (isEmpty(jobNumber)) {
+            return false;
+        } else {
+            if (jobNumber.length() == 7 && jobNumber.startsWith("111")) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
