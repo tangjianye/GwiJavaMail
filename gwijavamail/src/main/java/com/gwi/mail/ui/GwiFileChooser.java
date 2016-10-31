@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
  * Created by Administrator on 2016-10-26.
  */
 public class GwiFileChooser extends JFrame implements ActionListener {
+    private static final long DELAY = 200L;
     private JButton mOpen;
 
     public GwiFileChooser() {
@@ -63,19 +64,23 @@ public class GwiFileChooser extends JFrame implements ActionListener {
                 ParseStrategy parse = new ParseStrategy(new ParseExcelJxl());
                 HashMap<String, String> hashMap = parse.doParse(filePath);
 
+                int count = 0;
                 for (Map.Entry<String, String> entry : hashMap.entrySet()) {
                     System.out.println("Email:" + entry.getKey() + " Content:" + entry.getValue());
                     String email = MailManager.getInstance().creatGwiMail(entry.getKey());
                     StringBuffer sb = new StringBuffer();
                     sb.append(GwiConfigs.MAIL_CONTENT).append("<br>").append(entry.getValue());
                     try {
+                        Thread.sleep(DELAY);
+						count++;
                         MailManager.getInstance().sendMimeMail(email, sb.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
-                String msg = String.format(GwiConfigs.LABEL_MSG, hashMap.size());
+                System.out.println("hashMap.size = " + hashMap.size() + " ;count = " + count);
+                String msg = String.format(GwiConfigs.LABEL_MSG, count);
                 JOptionPane.showMessageDialog(null, msg, GwiConfigs.LABEL_TITLE, JOptionPane.PLAIN_MESSAGE);
             }
         }).start();
