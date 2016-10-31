@@ -28,6 +28,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
         mOpen.setFont(font);
         mOpen.setBorder(BorderFactory.createRaisedBevelBorder());
         this.add(mOpen);
+        this.setTitle(GwiConfigs.LABEL_SEND_EMAIL_TITLE);
         this.setBounds(400, 200, 400, 400);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
