@@ -72,9 +72,7 @@ public class MailProcess {
                 }
 
                 // 群发邮件
-                count = 0;
                 try {
-                    count++;
                     MailManager.getInstance().sendMimeMail(address, sb.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
