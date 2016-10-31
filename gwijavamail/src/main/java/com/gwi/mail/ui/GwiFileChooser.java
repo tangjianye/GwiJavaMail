@@ -72,7 +72,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
                     sb.append(GwiConfigs.MAIL_CONTENT).append("<br>").append(entry.getValue());
                     try {
                         Thread.sleep(DELAY);
-						count++;
+                        count++;
                         MailManager.getInstance().sendMimeMail(email, sb.toString());
                     } catch (Exception e) {
                         e.printStackTrace();
