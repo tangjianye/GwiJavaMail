@@ -2,6 +2,7 @@ package com.gwi.mail.ui;
 
 import com.gwi.mail.constant.GwiConfigs;
 import com.gwi.mail.mail.MailProcess;
+import com.gwi.mail.utils.FileFilterXLS;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
         // TODO Auto-generated method stub
         JFileChooser jfc = new JFileChooser();
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jfc.setFileFilter(new FileFilterXLS());
         jfc.showDialog(new JLabel(), GwiConfigs.LABEL_CHOICE);
         File file = jfc.getSelectedFile();
         if (null != file) {
@@ -46,7 +48,7 @@ public class GwiFileChooser extends JFrame implements ActionListener {
             } else if (file.isFile()) {
                 // "C:/Users/Administrator/Desktop/kaoqin/002.xls"
                 System.out.println("File:" + file.getAbsolutePath());
-                MailProcess.getInstance().mailGroup(file.getAbsolutePath());
+                MailProcess.getInstance().mailGroupBuild(file.getAbsolutePath());
             }
         }
     }

@@ -5,9 +5,12 @@ package com.gwi.mail.constant;
  */
 public class GwiConfigs {
     public static final String LABEL_DOCUMENT = "选择考勤文档（.xls）";
+    public static final String LABEL_SEND_EMAIL = "发送邮件";
+    public static final String LABEL_SEND_EMAIL_TITLE = "邮件预览";
     public static final String LABEL_CHOICE = "选择";
     public static final String LABEL_TITLE = "完成";
     public static final String LABEL_MSG = "发出%s封邮件";
+    public static final String LABEL_SEND_ERROR = "邮件发送失败";
     public static final String LABEL_ABSENTEEISM = "旷工时间：";
     public static final String LABEL_ABSENTEEISM_MORNING = "上班异常：";
     public static final String LABEL_ABSENTEEISM_AFTERNOON = "下班异常：";
@@ -45,7 +48,7 @@ public class GwiConfigs {
 
     /**
      * Excel表里面每一列的抬头
-     * <p/>
+     * <p>
      * 1）旷工：签到时间 && 签退时间 都为空
      * 2）迟到|早退：
      * a.签到时间或签退时间有一个为空
