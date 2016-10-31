@@ -1,29 +1,23 @@
 package com.gwi.mail.ui;
 
 import com.gwi.mail.constant.GwiConfigs;
-import com.gwi.mail.mail.MailManager;
-import com.gwi.mail.parse.ParseExcelJxl;
-import com.gwi.mail.parse.ParseStrategy;
+import com.gwi.mail.mail.MailProcess;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 /**
  * Created by Administrator on 2016-10-26.
  */
 public class GwiFileChooser extends JFrame implements ActionListener {
-    private static final long DELAY = 200L;
     private JButton mOpen;
 
     public GwiFileChooser() {
@@ -52,37 +46,8 @@ public class GwiFileChooser extends JFrame implements ActionListener {
             } else if (file.isFile()) {
                 // "C:/Users/Administrator/Desktop/kaoqin/002.xls"
                 System.out.println("File:" + file.getAbsolutePath());
-                work(file.getAbsolutePath());
+                MailProcess.getInstance().mailGroup(file.getAbsolutePath());
             }
         }
-    }
-
-    private void work(final String filePath) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ParseStrategy parse = new ParseStrategy(new ParseExcelJxl());
-                HashMap<String, String> hashMap = parse.doParse(filePath);
-
-                int count = 0;
-                for (Map.Entry<String, String> entry : hashMap.entrySet()) {
-                    System.out.println("Email:" + entry.getKey() + " Content:" + entry.getValue());
-                    String email = MailManager.getInstance().creatGwiMail(entry.getKey());
-                    StringBuffer sb = new StringBuffer();
-                    sb.append(GwiConfigs.MAIL_CONTENT).append("<br>").append(entry.getValue());
-                    try {
-                        Thread.sleep(DELAY);
-                        count++;
-                        MailManager.getInstance().sendMimeMail(email, sb.toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                System.out.println("hashMap.size = " + hashMap.size() + " ;count = " + count);
-                String msg = String.format(GwiConfigs.LABEL_MSG, count);
-                JOptionPane.showMessageDialog(null, msg, GwiConfigs.LABEL_TITLE, JOptionPane.PLAIN_MESSAGE);
-            }
-        }).start();
     }
 }

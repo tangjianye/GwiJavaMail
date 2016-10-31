@@ -28,7 +28,7 @@ public class MailManager {
      *
      * @throws Exception
      */
-    public void sendMimeMail(String receiveMail, String content) throws Exception {
+    public void sendMimeMail(String[] receiveMail, String content) throws Exception {
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                                    // 参数配置
         props.setProperty("mail.transport.protocol", "smtp");                   // 使用的协议（JavaMail规范要求）
@@ -65,13 +65,20 @@ public class MailManager {
      * @return
      * @throws Exception
      */
-    private MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail, String content) throws Exception {
+    private MimeMessage createMimeMessage(Session session, String sendMail, String[] receiveMail, String content) throws Exception {
         // 1. 创建一封邮件
         MimeMessage message = new MimeMessage(session);
         // 2. From: 发件人
         message.setFrom(new InternetAddress(sendMail, GwiConfigs.MAIL_FROM, "UTF-8"));
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, receiveMail, "UTF-8"));
+        InternetAddress[] tos = new InternetAddress[receiveMail.length];
+        for (int i = 0; i < receiveMail.length; i++) {
+            if (!receiveMail[i].trim().matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)+$")) {
+                System.exit(-1);
+            }
+            tos[i] = new InternetAddress(receiveMail[i].trim(), receiveMail[i].trim(), "UTF-8");
+        }
+        message.setRecipients(MimeMessage.RecipientType.TO, tos);
         // 4. Subject: 邮件主题
         message.setSubject(GwiConfigs.MAIL_SUBJECT, "UTF-8");
         // 5. Content: 邮件正文（可以使用html标签）
@@ -81,11 +88,5 @@ public class MailManager {
         // 7. 保存设置
         message.saveChanges();
         return message;
-    }
-
-    public String creatGwiMail(String jobNumber) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(jobNumber).append(GwiConfigs.Mail.RECEIVE_EMAIL_SUFFIX);
-        return sb.toString();
     }
 }
